@@ -4,7 +4,7 @@ module tb_pwm_led_static;
 
   parameter int SYS_CLK_FREQ = 1000;
   parameter int PWM_FREQ = 100;
-  parameter int DUTY = 25;
+  parameter int DUTY = 50;
 
   // Clock period for 1000Hz (1ms) -> 1,000,000ns.
   // But let's just use a standard 10ns (100MHz) clock for the toggle.
@@ -47,8 +47,19 @@ module tb_pwm_led_static;
   initial begin
 
     // init input
-    rst = 1;
+    rst = 0;
     clk = 0;
+
+    // Apply Reset
+    do_reset();
+
+    // Run for a few PWM cycles
+    // Total clocks per period = 1000/100 = 10 cycles.
+    // We'll run for 50 cycles to see 5 PWM periods.
+    repeat (50) @(posedge clk);
+
+    $display("Simulation Finished");
+    $finish;
 
   end
 

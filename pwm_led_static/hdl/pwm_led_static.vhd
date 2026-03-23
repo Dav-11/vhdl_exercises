@@ -37,12 +37,12 @@ architecture Behavioral of pwm_led_static is
 
 begin
 
-    process(clk, reset)
+    process(clk, rst)
     begin
 
         if (rising_edge(clk)) then
             
-            if rst = 1 then
+            if rst = '1' then
                 
                 cnt_r       <= 0;
                 pwm_out     <= '0';
@@ -72,9 +72,8 @@ begin
                     pwm_out <= '0';
                 end if;
 
-            end if
-
-        end if
-    end
+            end if;
+        end if;
+    end process;
 
 end Behavioral;
