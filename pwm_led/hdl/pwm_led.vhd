@@ -34,8 +34,8 @@ architecture Behavioral of pwm_led is
     signal cnt_r : integer range 0 to MAX_COUNT - 1 := 0;
     signal high_count : integer range 0 to MAX_COUNT - 1 := 0;
 
-    signal pwm_out_n : STD_LOGIC;
-    signal pwm_out_r : STD_LOGIC;
+    -- signal pwm_out_n : STD_LOGIC;
+    -- signal pwm_out_r : STD_LOGIC;
 
 begin
 
@@ -47,14 +47,7 @@ begin
     -----------------------
     -- out logic
     -----------------------
-
-    if cnt_r < high_count then
-        
-        pwm_out_n <= '1';
-    else
-
-        pwm_out_n <= '0';
-    end if;
+    -- pwm_out_n <= '1' when cnt_r < high_count else '0';
 
     process(clk, rst)
     begin
@@ -72,17 +65,19 @@ begin
                 -----------------------
 
                 if cnt_r < MAX_COUNT -1 then
-        
                     cnt_r <= cnt_r + 1;
                 else
-
                     cnt_r <= 0;
                 end if;
 
                 -----------------------
                 -- out logic
                 -----------------------
-                pwm_out <= pwm_out_n;
+                if cnt_r < high_count then
+                    pwm_out <= '1';
+                else
+                    pwm_out <= '0';
+                end if;
 
             end if;
         end if;

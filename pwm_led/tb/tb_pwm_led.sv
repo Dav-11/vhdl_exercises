@@ -72,6 +72,9 @@ module tb_pwm_led;
       end
     end
 
+    // wait another PWM cycle
+    repeat (PERIOD_TICKS) @(posedge clk);
+
     $display("Brightness %0d check complete.", b);
   endtask
 
